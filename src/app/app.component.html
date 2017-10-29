@@ -1,16 +1,17 @@
-<div class="container bg-light p-2">
+<div class="container border border-dark bg-light p-2">
   <div class="d-flex p-2 justify-content-center  align-items-center">
     <label for="content">I'm looking for</label>
-    <input class="mx-3 px-1" type="text" [(ngModel)]="content" id="content" name="content" placeholder="I am looking for">
-    <input class="btn btn-primary" type="submit" value="Send" (click)="addRequest()">
+    <input class="mx-3 px-1" type="text" [(ngModel)]="content" id="content" name="content" placeholder="Text of search request" (keydown.enter)="addRequest()">
+    <button class="btn" type="submit" (click)="addRequest()"><i class="fa fa-search"></i> SEND</button>
   </div>
-  <ul class="list-unstyled" *ngFor="let request of requests | async">
-    <li class="d-flex justify-content-between p-2" (click)="getRequest(request.id)">
+  <p class="text-center">Search history - {{countRequests('requestsList')}}</p>
+  <ul class="list-unstyled" id="requestsList">
+    <li class="d-flex justify-content-between p-2" *ngFor="let request of requests | async" (click)="getRequest(request.id)">
       <div class="d-flex flex-column">
         <span>{{ request.data.date}}</span>
         <span>{{request.data.content}}</span>
       </div>
-      <button class="btn btn-primary" (click)="deleteRequest(request.id)">delete</button>
+      <button class="btn" (click)="deleteRequest(request.id)"><i class="fa fa-minus-square"></i> delete</button>
     </li>
   </ul>
 </div>

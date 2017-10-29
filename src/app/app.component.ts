@@ -33,7 +33,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.requestsCol = this.afs.collection('requests');
-    //this.posts = this.postsCol.valueChanges();
     this.requests = this.requestsCol.snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -55,5 +54,17 @@ export class AppComponent {
 
   deleteRequest(requestId) {
     this.afs.doc('requests/'+requestId).delete();
+  }
+
+  countRequests(list) {
+  	let listLength = document.getElementById(list).children.length;
+  	let message;
+  	if (listLength === 0) {
+  		return message = "no requests";
+  	} else if (listLength === 1) {
+  		return message = listLength + " request";
+  	} else {
+  		return message = listLength + " requests";
+  	}
   }
 }
